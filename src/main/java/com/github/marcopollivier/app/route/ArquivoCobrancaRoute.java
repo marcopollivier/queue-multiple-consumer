@@ -24,13 +24,13 @@ public class ArquivoCobrancaRoute extends RouteBuilder {
     public void configure() throws Exception {
 
         from("quartz2://queue-multitenancy/jobcron?cron=0/1+*+*+*+*+?")
-                .routeId("INICIO_ROUTE")
-                .end()
-                .process(exchange -> {
-                    publisher.publish("C -> " + getMensagem());
-                    publisher.publish("J -> " + getMensagem());
-                })
-                .log("Processo finalizado");
+            .routeId("route-rabbit")
+            .end()
+            .process(exchange -> {
+                publisher.publish("cypher", "C -> " + getMensagem());
+                publisher.publish("juggernaut", "J -> " + getMensagem());
+            })
+            .log("Processo finalizado");
 
     }
 

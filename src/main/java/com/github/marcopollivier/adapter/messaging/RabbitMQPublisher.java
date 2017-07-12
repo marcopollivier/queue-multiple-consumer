@@ -12,6 +12,8 @@ import org.springframework.messaging.support.MessageBuilder;
 @EnableBinding(OutputDestination.class)
 public class RabbitMQPublisher {
 
+    private static final String TENAND = "tenant";
+
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitMQPublisher.class);
 
     private OutputDestination queueDestination;
@@ -21,8 +23,13 @@ public class RabbitMQPublisher {
         this.queueDestination = queueDestination;
     }
 
-    public void publish(String mensagem) {
-        queueDestination.outputFaturaConvertida().send(MessageBuilder.withPayload(mensagem).build());
+    public void publish(String tenant, String mensagem) {
+        MessageBuilder<String> stringMessageBuilder = MessageBuilder.withPayload(mensagem);
+        stringMessageBuilder.setHeader(TENAND, tenant);
+
+
+        queueDestination.outputFaturaConvertida().send(stringMessageBuilder.build());
+
         LOGGER.info("Publicando arquivo de cobranca de " + mensagem);
     }
 
