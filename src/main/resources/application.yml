@@ -19,56 +19,9 @@ spring:
         group: criarFatura
         consumer:
           maxAttempts: 5
-      CartaoCadastrado:
-        destination: ${project.name}.CartaoCadastrado
-        group: atualizarFatura
-        consumer:
-          maxAttempts: 5
-      FaturaCanceladaOutput:
-        destination: ${project.name}.FaturaCancelada
-      FaturaCanceladaInput:
-        destination: ${project.name}.FaturaCancelada
-        group: encerrarFatura
-        consumer:
-          maxAttempts: 5
-
-      #Filas Xmen
-      InvoiceCreated:
-        destination: colossus.InvoiceCreated
-        consumer:
-          maxAttempts: 10
-      InvoiceProcessed:
-        destination: magneto.faturaProcessada
-        group: ${project.name}.InvoiceProcessed
-      FaturaChargebacked:
-        destination: tempestade.chargeBackNotification
-        group: ${project.name}.notificacaoChargeBack
-        consumer:
-          maxAttempts: 10
 
     rabbit.bindings:
       FaturaConvertidaInput:
         consumer:
           autoBindDlq: true
           republishToDlq: true
-      CartaoCadastrado:
-        consumer:
-          autoBindDlq: true
-          republishToDlq: true
-      FaturaCanceladaInput:
-        consumer:
-          autoBindDlq: true
-          republishToDlq: true
-      FaturaChargebacked:
-        consumer:
-          recoveryInterval: 10000
-          autoBindDlq: true
-          republishToDlq: true
-      InvoiceProcessed:
-        consumer:
-          maxAttempts: 10
-          autoBindDlq: true
-          republishToDlq: true
-
-criarFatura.dlq: ${spring.cloud.stream.bindings.FaturaConvertidaInput.destination}.${spring.cloud.stream.bindings.FaturaConvertidaInput.group}.dlq
-processarFatura.dlq: ${spring.cloud.stream.bindings.InvoiceProcessed.destination}.${spring.cloud.stream.bindings.InvoiceProcessed.group}.dlq
