@@ -16,13 +16,6 @@
     <name>queue-multiple-consumer</name>
     <description>queue-multiple-consumer</description>
 
-    <scm>
-        <connection>scm:git:ssh://git@bitbucket.org/git-m4u/icatu-cypher.git</connection>
-        <developerConnection>scm:git:ssh://git@bitbucket.org/git-m4u/icatu-cypher.git</developerConnection>
-        <url>https://bitbucket.org/git-m4u/icatu-cypher.git</url>
-        <tag>HEAD</tag>
-    </scm>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -88,28 +81,6 @@
             <version>${camel.version}</version>
         </dependency>
 
-        <!-- db -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgres.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>${hikaricp.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-        </dependency>
-
-        <!-- Service Discovery -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-        </dependency>
-
         <!-- test -->
         <dependency>
             <groupId>junit</groupId>
@@ -154,13 +125,6 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
-
-        <!-- utils -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
-
 
     </dependencies>
 
