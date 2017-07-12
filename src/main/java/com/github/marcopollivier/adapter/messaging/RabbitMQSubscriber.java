@@ -19,13 +19,13 @@ public class RabbitMQSubscriber {
 
     }
 
-    @StreamListener(QueueConstants.FATURA_CONVERTIDA_INPUT)
+    @StreamListener(QueueConstants.FATURA_CONVERTIDA_JUGGERNAUT_INPUT)
     public void processaJuggernaut(String dado) throws Throwable {
         LOG.info("PROCESSADO JUGGERNAUT ::: " + dado);
     }
 
 
-    @StreamListener(QueueConstants.FATURA_CONVERTIDA_INPUT)
+    @StreamListener(QueueConstants.FATURA_CONVERTIDA_CYPHER_INPUT)
     public void processaCypher(String dado) throws Throwable {
         LOG.info("PROCESSADO CYPHER ::: " + dado);
     }

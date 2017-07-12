@@ -8,7 +8,9 @@ import org.springframework.messaging.MessageChannel;
  */
 public interface InputDestination {
 
-    @Input(QueueConstants.FATURA_CONVERTIDA_INPUT)
-    MessageChannel inputFaturaConvertida();
+    @Input(QueueConstants.FATURA_CONVERTIDA_JUGGERNAUT_INPUT)
+    MessageChannel inputFaturaConvertidaJuggernaut();
 
+    @Input(QueueConstants.FATURA_CONVERTIDA_CYPHER_INPUT)
+    MessageChannel inputFaturaConvertidaCypher();
 }

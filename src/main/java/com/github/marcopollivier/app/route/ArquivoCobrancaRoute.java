@@ -5,6 +5,8 @@ import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 /**
  * Created by marcoollivier on 22/05/17.
  */
@@ -21,7 +23,7 @@ public class ArquivoCobrancaRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        from("quartz2://queue-multitenancy/jobcron?cron=0+0/1+*+*+*+?")
+        from("quartz2://queue-multitenancy/jobcron?cron=0/1+*+*+*+*+?")
                 .routeId("INICIO_ROUTE")
                 .end()
                 .process(exchange -> {
@@ -32,7 +34,7 @@ public class ArquivoCobrancaRoute extends RouteBuilder {
     }
 
     public String getMensagem() {
-        return "Mensagem a ser processada";
+        return LocalDateTime.now().toString();
     }
 
 }

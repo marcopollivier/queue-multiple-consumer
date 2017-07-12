@@ -1,4 +1,7 @@
-project.name: cypher
+project.name: queue-multiple-consumer
+
+server.port: 8090
+management.port: 8091
 
 logging.path: /app/cypher/log
 
@@ -6,22 +9,20 @@ spring:
   application:
     name: queue-multiple-consumer
   rabbitmq:
-    addresses: ${RABBITMQ_HOST:localhost}
+    addresses: localhost
     virtual_host: xmen
 
   cloud.stream:
     bindings:
       #Filas Cypher
-      FaturaConvertidaOutput:
-        destination: ${project.name}.FaturaConvertida
-      FaturaConvertidaInput:
-        destination: ${project.name}.FaturaConvertida
+      FilaUnicaOutput:
+        destination: ${project.name}.FilaUnica
+      FilaUnicaInputCypher:
+        destination: ${project.name}.FilaUnica
+        consumer:
+          maxAttempts: 5
+      FilaUnicaInputJuggernaut:
+        destination: ${project.name}.FilaUnica
         group: criarFatura
         consumer:
           maxAttempts: 5
-
-    rabbit.bindings:
-      FaturaConvertidaInput:
-        consumer:
-          autoBindDlq: true
-          republishToDlq: true
