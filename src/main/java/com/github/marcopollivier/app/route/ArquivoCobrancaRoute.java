@@ -2,9 +2,7 @@ package com.github.marcopollivier.app.route;
 
 import com.github.marcopollivier.adapter.messaging.RabbitMQPublisher;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.spi.DataFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,13 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ArquivoCobrancaRoute extends RouteBuilder {
 
-    private static final String ROUTEID = "LeituraArquivoCobranca";
-
-    private DataFormat dataFormat;
-
     private RabbitMQPublisher publisher;
-
-    private String fileURI;
 
     @Autowired
     public ArquivoCobrancaRoute(RabbitMQPublisher publisher) {
@@ -28,19 +20,19 @@ public class ArquivoCobrancaRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from(fileURI)
-                .routeId(ROUTEID)
-                .split(body()).streaming()
-                .process(exchange -> {
-                    publisher.publish("mensagem");
-                })
+
+        from("quartz2://queue-multitenancy/jobcron?cron=0+0/1+*+*+*+?")
+                .routeId("INICIO_ROUTE")
                 .end()
-                .log("Finalizado processamento do arquivo de cobranca.");
+                .process(exchange -> {
+                    publisher.publish(getMensagem());
+                })
+                .log("Processo finalizado");
+
     }
 
-    @Value("${icatu.arquivo.entrada.cobranca.uri}")
-    public void setFileURI(String fileURI) {
-        this.fileURI = fileURI;
+    public String getMensagem() {
+        return "Mensagem a ser processada";
     }
 
 }

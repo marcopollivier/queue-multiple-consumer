@@ -27,7 +27,7 @@ public class RabbitMQSubscriber {
 
     @StreamListener(QueueConstants.FATURA_CONVERTIDA_INPUT)
     public void processaCypher(String dado) throws Throwable {
-        LOG.info("PROCESSADO JUGGERNAUT ::: " + dado);
+        LOG.info("PROCESSADO CYPHER ::: " + dado);
     }
 
 }
