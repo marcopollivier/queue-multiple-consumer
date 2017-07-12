@@ -27,7 +27,8 @@ public class ArquivoCobrancaRoute extends RouteBuilder {
                 .routeId("INICIO_ROUTE")
                 .end()
                 .process(exchange -> {
-                    publisher.publish(getMensagem());
+                    publisher.publish("C -> " + getMensagem());
+                    publisher.publish("J -> " + getMensagem());
                 })
                 .log("Processo finalizado");
 
