@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <springProfile name="dev">
+        <appender name="JSON-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <File>${LOG_PATH}/server-dev.json</File>
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <timeZone>America/Sao_Paulo</timeZone>
+                <jsonFactoryDecorator class="com.github.marcopollivier.config.LocalDateTimeDecorator"/>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_PATH}/server.%d{yyyy-MM-dd_HH}.json.gz</fileNamePattern>
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+    </springProfile>
+
+    <springProfile name="prod">
+        <appender name="JSON-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <File>${LOG_PATH}/server.json</File>
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <timeZone>America/Sao_Paulo</timeZone>
+                <jsonFactoryDecorator class="com.github.marcopollivier.config.LocalDateTimeDecorator"/>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_PATH}/server.%d{yyyy-MM-dd_HH}.json.gz</fileNamePattern>
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+    </springProfile>
+
+    <logger name="com.m4u.icatu" level="INFO" additivity="true"/>
+    <root level="INFO">
+
+        <springProfile name="dev">
+            <appender-ref ref="JSON-FILE"/>
+        </springProfile>
+        <springProfile name="prod">
+            <appender-ref ref="JSON-FILE"/>
+        </springProfile>
+
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

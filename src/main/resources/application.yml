@@ -1,0 +1,164 @@
+project.name: cypher
+
+logging.path: /app/cypher/log
+
+spring:
+  application:
+    name: cypher
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/cypherdb
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:postgres}
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 10
+      connection-test-query: SELECT 1
+  jpa:
+    show-sql: false
+    properties.hibernate:
+      dialect: org.hibernate.dialect.PostgreSQL94Dialect
+      naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+    hibernate:
+      ddl-auto: update
+
+  rabbitmq:
+    addresses: ${RABBITMQ_HOST:localhost}
+    virtual_host: xmen
+
+  cloud.stream:
+    bindings:
+      #Filas Cypher
+      FaturaConvertidaOutput:
+        destination: ${project.name}.FaturaConvertida
+      FaturaConvertidaInput:
+        destination: ${project.name}.FaturaConvertida
+        group: criarFatura
+        consumer:
+          maxAttempts: 5
+      CartaoCadastrado:
+        destination: ${project.name}.CartaoCadastrado
+        group: atualizarFatura
+        consumer:
+          maxAttempts: 5
+      FaturaCanceladaOutput:
+        destination: ${project.name}.FaturaCancelada
+      FaturaCanceladaInput:
+        destination: ${project.name}.FaturaCancelada
+        group: encerrarFatura
+        consumer:
+          maxAttempts: 5
+
+      #Filas Xmen
+      InvoiceCreated:
+        destination: colossus.InvoiceCreated
+        consumer:
+          maxAttempts: 10
+      InvoiceProcessed:
+        destination: magneto.faturaProcessada
+        group: ${project.name}.InvoiceProcessed
+      FaturaChargebacked:
+        destination: tempestade.chargeBackNotification
+        group: ${project.name}.notificacaoChargeBack
+        consumer:
+          maxAttempts: 10
+
+    rabbit.bindings:
+      FaturaConvertidaInput:
+        consumer:
+          autoBindDlq: true
+          republishToDlq: true
+      CartaoCadastrado:
+        consumer:
+          autoBindDlq: true
+          republishToDlq: true
+      FaturaCanceladaInput:
+        consumer:
+          autoBindDlq: true
+          republishToDlq: true
+      FaturaChargebacked:
+        consumer:
+          recoveryInterval: 10000
+          autoBindDlq: true
+          republishToDlq: true
+      InvoiceProcessed:
+        consumer:
+          maxAttempts: 10
+          autoBindDlq: true
+          republishToDlq: true
+
+criarFatura.dlq: ${spring.cloud.stream.bindings.FaturaConvertidaInput.destination}.${spring.cloud.stream.bindings.FaturaConvertidaInput.group}.dlq
+processarFatura.dlq: ${spring.cloud.stream.bindings.InvoiceProcessed.destination}.${spring.cloud.stream.bindings.InvoiceProcessed.group}.dlq
+
+icatu:
+  nome: Icatu
+  profileName: ICATUSEGURADORA
+  parceria.nome: M4U
+
+  arquivo:
+    entrada:
+      cobranca.uri: 'file:///app/cypher/sincronismo/entrada/?include=.*\.env&move=done&moveFailed=error'
+      cancelamento.uri: 'file:///app/cypher/sincronismo/entrada/?include=.*\.can&move=done&moveFailed=error'
+    retorno:
+      cobranca.uri: 'file:///app/cypher/sincronismo/saida'
+    mapeamentos:
+      codigosRetorno:
+        retornoDefault: '10'
+        mapeamentos:
+          SUCESSO: '00'
+          ERRO_NAO_MAPEADO: '10'
+          #RENOVA_FACIL: ''
+          ERRO_INTERNO_ELDORADO: '10'
+          CARTAO_INVALIDO: '51'
+          BLACKLIST: '59'
+          NOTIFICACAO_INCONSISTENTE: '93'
+          FALHA_NA_CAPTURA: '81'
+          MAQUINETA_NAO_ENCONTRADA: '31'
+          NOTIFICACAO_SEM_AUTORIZACAO: '83'
+          PANIC_MODE: '56'
+          RESPOSTA_DA_AUTORIZACAO_NAO_ENCONTRADA: '82'
+          CVV_INVALIDO: '53'
+          PROBLEMA_INTERNO_DA_ADQUIRENTE: '20'
+          PROBLEMA_DE_CONFIGURACAO_COM_ADQUIRENTE: '32'
+          PROBLEMA_DE_COMUNICACAO_COM_ADQUIRENTE: '21'
+          DADOS_INVALIDOS: '52'
+          REGRA_DE_NEGOCIO_ADQUIRENTE: '57'
+          PROBLEMA_NO_CARTAO: '50'
+          TRANSACAO_NEGADA: '83'
+          CARTAO_INVALIDO_ELDORADO: '51'
+          CARTAO_VENCIDO: '53'
+          CVV_INVALIDO_ELDORADO: '52'
+          SALDO_INSUFICIENTE: '55'
+          CANCELAMENTO_NAO_EFETUADO: '92'
+          CARTAO_NAO_DESBLOQUEADO: '54'
+          ERRO_RECEBIDO_PELO_SERVIDOR: '10'
+          CAPTURA_LEVOU_MAIS_TEMPO_DO_QUE_DEVERIA: '21'
+          TERMINAL_NAO_ESTA_EM_USO: '33'
+          TERMINAL_COM_DIVERGENCIA_DE_SESSAO: '34'
+      cartoes:
+        mapeamentos:
+          VISA: '001'
+          MASTERCARD: '002'
+          AMEX: '003'
+          DINERS: '005'
+          ELO: '007'
+
+  fatura.maximoRegistros: 100
+
+  cron:
+    entrada:
+      cobranca: ${CRON_EXP_ENV:0+0/30+0-6+*+*+?}
+      cancelamento: ${CRON_EXP_CAN:0+20/30+0-6+*+*+?}
+    retorno:
+      cobranca: ${CRON_EXP_RET:0+0/30+18-23+*+*+?}
+
+pegasus.serviceid.cobranca: CIELO
+
+magneto:
+  tenant-id: ${icatu.profileName}
+  api:
+    cancelInvoice: http://MAGNETO/v1/faturas/
+
+mistica:
+  profile: ${icatu.profileName}
+  api:
+    findClient: http://MISTICA/clients/
