@@ -27,8 +27,8 @@ public class ArquivoCobrancaRoute extends RouteBuilder {
             .routeId("route-rabbit")
             .end()
             .process(exchange -> {
-                publisher.publish("cypher", "C -> " + getMensagem());
-                publisher.publish("juggernaut", "J -> " + getMensagem());
+                publisher.publish("cypher", "cypher :: " + getMensagem());
+                publisher.publish("juggernaut", "juggernaut :: " + getMensagem());
             })
             .log("Processo finalizado");
 

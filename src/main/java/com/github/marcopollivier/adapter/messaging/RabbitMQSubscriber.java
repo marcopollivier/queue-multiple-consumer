@@ -23,13 +23,21 @@ public class RabbitMQSubscriber {
 
     @StreamListener(FATURA_CONVERTIDA_JUGGERNAUT_INPUT)
     public void processaJuggernaut(String dado) {
-        LOG.info("PROCESSADO JUGGERNAUT ::: " + dado);
+        if(dado.contains("cypher")) {
+            LOG.error("!!!!DADO ERRADO!!!!!!!");
+            return;
+        }
+        LOG.info("JUGGERNAUT -> " + dado);
     }
 
 
     @StreamListener(FATURA_CONVERTIDA_CYPHER_INPUT)
     public void processaCypher(String dado) {
-        LOG.info("PROCESSADO CYPHER ::: " + dado);
+        if(dado.contains("juggernaut")) {
+            LOG.error("!!!!DADO ERRADO!!!!!!!");
+            return;
+        }
+        LOG.info("CYPHER -> " + dado);
     }
 
 }
