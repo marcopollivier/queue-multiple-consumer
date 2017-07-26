@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 
 /**
@@ -24,11 +25,7 @@ public class RabbitMQPublisher {
     }
 
     public void publish(String tenant, String mensagem) {
-        MessageBuilder<String> stringMessageBuilder = MessageBuilder.withPayload(mensagem);
-        stringMessageBuilder.setHeader(TENAND, tenant);
-
-
-        queueDestination.outputFaturaConvertida().send(stringMessageBuilder.build());
+        queueDestination.outputFaturaConvertida().send(MessageBuilder.withPayload(mensagem).setHeader(TENAND, tenant).build());
 
         LOGGER.info("Publicando arquivo de cobranca de " + mensagem);
     }

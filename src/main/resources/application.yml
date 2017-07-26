@@ -1,9 +1,4 @@
-project.name: queue-multiple-consumer
-
-server.port: 8090
-management.port: 8091
-
-logging.path: /app/cypher/log
+#http://docs.spring.io/spring-cloud-stream/docs/Brooklyn.SR3/reference/htmlsingle/#_rabbit_producer_properties
 
 spring:
   application:
@@ -16,28 +11,17 @@ spring:
     bindings:
       #Fila aplicação externa
       FilaUnicaOutput:
-        destination: ${project.name}.FilaUnica
+        destination: FilaUnica
 
       #Consumidores da mesma fila
       FilaUnicaInputCypher:
-        destination: ${project.name}.FilaUnica
-        group: criarFatura
-        consumer:
-          maxAttempts: 5
+        destination: FilaUnica
+        group: GrupoUnico
+
       FilaUnicaInputJuggernaut:
-        destination: ${project.name}.FilaUnica
-        group: criarFatura
-        consumer:
-          maxAttempts: 5
+        destination: FilaUnica
+        group: GrupoUnico
 
     rabbit.bindings:
-      #IN CYPHER
-      FilaUnicaInputCypher:
-        consumer:
-          requestHeaderPatterns:
-            tenant: "cypher"
-      #IN JUGG
-      FilaUnicaInputJuggernaut:
-        consumer:
-          requestHeaderPatterns:
-            tenant: "juggernaut"
+      FilaUnicaInputCypher.consumer.bindingRoutingKey: 'cypher'
+      FilaUnicaInputJuggernaut.consumer.bindingRoutingKey: 'juggernaut'
