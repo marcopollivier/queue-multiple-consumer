@@ -14,7 +14,6 @@ spring:
 
   cloud.stream:
     bindings:
-
       #Fila aplicação externa
       FilaUnicaOutput:
         destination: ${project.name}.FilaUnica
@@ -22,26 +21,23 @@ spring:
       #Consumidores da mesma fila
       FilaUnicaInputCypher:
         destination: ${project.name}.FilaUnica
+        group: criarFatura
         consumer:
           maxAttempts: 5
       FilaUnicaInputJuggernaut:
         destination: ${project.name}.FilaUnica
+        group: criarFatura
         consumer:
           maxAttempts: 5
 
     rabbit.bindings:
+      #IN CYPHER
       FilaUnicaInputCypher:
         consumer:
-          autoBindDlq: true
-          republishToDlq: true
           requestHeaderPatterns:
             tenant: "cypher"
-
+      #IN JUGG
       FilaUnicaInputJuggernaut:
         consumer:
-          autoBindDlq: true
-          republishToDlq: true
           requestHeaderPatterns:
             tenant: "juggernaut"
-
-
