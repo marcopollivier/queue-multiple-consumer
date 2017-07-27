@@ -7,21 +7,32 @@ spring:
     addresses: localhost
     virtual_host: xmen
 
-  cloud.stream:
-    bindings:
-      #Fila aplicação externa
-      FilaUnicaOutput:
-        destination: FilaUnica
+  cloud:
+    stream:
+      bindings:
 
-      #Consumidores da mesma fila
-      FilaUnicaInputCypher:
-        destination: FilaUnica
-        group: GrupoUnico
+        #Producer
+        FilaUnicaOutput:
+          destination: FilaUnica
+          consumer:
+            requiredGroups: GrupoUnico
 
-      FilaUnicaInputJuggernaut:
-        destination: FilaUnica
-        group: GrupoUnico
+        #Consumer
+        FilaUnicaInputCypher:
+          destination: FilaUnica
+          group: GrupoUnico
 
-    rabbit.bindings:
-      FilaUnicaInputCypher.consumer.bindingRoutingKey: 'cypher'
-      FilaUnicaInputJuggernaut.consumer.bindingRoutingKey: 'juggernaut'
+        FilaUnicaInputJuggernaut:
+          destination: FilaUnica
+          group: GrupoUnico
+
+      rabbit:
+        bindings:
+
+          FilaUnicaInputCypher:
+            consumer:
+              bindingRoutingKey: 'cypher'
+
+          FilaUnicaInputJuggernaut:
+            consumer:
+              bindingRoutingKey: 'juggernaut'
