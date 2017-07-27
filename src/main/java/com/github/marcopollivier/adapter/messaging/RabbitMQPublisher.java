@@ -7,13 +7,13 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 
+import static com.github.marcopollivier.adapter.messaging.ApplicationConstants.TENANT;
+
 /**
  * Created by marcoollivier on 25/05/17.
  */
 @EnableBinding(OutputDestination.class)
 public class RabbitMQPublisher {
-
-    private static final String TENAND = "tenant";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitMQPublisher.class);
 
@@ -25,7 +25,7 @@ public class RabbitMQPublisher {
     }
 
     public void publish(String tenant, String mensagem) {
-        queueDestination.outputFaturaConvertida().send(MessageBuilder.withPayload(mensagem).setHeader(TENAND, tenant).build());
+        queueDestination.outputFaturaConvertida().send(MessageBuilder.withPayload(mensagem).setHeader(TENANT, tenant).build());
 
         LOGGER.info("Publicando arquivo de cobranca de " + mensagem);
     }
