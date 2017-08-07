@@ -11,12 +11,6 @@ spring:
     stream:
       bindings:
 
-        #Producer
-        FilaUnicaOutput:
-          destination: FilaUnica
-          consumer:
-            requiredGroups: GrupoUnico
-
         #Consumer
         FilaUnicaInputCypher:
           destination: FilaUnica
@@ -26,9 +20,16 @@ spring:
           destination: FilaUnica
           group: GrupoUnico
 
+        #Producer
+        FilaUnicaOutput:
+          destination: FilaUnica
+          consumer:
+            requiredGroups: GrupoUnico
+
       rabbit:
         bindings:
 
+          #Consumer
           FilaUnicaInputCypher:
             consumer:
               bindingRoutingKey: 'cypher'
@@ -36,3 +37,9 @@ spring:
           FilaUnicaInputJuggernaut:
             consumer:
               bindingRoutingKey: 'juggernaut'
+
+
+          #Producer
+          FilaUnicaOutput:
+            produces:
+              bindingRoutingKey: 'xpto'
