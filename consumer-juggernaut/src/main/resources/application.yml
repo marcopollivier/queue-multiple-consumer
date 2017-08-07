@@ -1,0 +1,45 @@
+#http://docs.spring.io/spring-cloud-stream/docs/Brooklyn.SR3/reference/htmlsingle/#_rabbit_producer_properties
+
+spring:
+  application:
+    name: queue-multiple-consumer
+  rabbitmq:
+    addresses: localhost
+    virtual_host: xmen
+
+  cloud:
+    stream:
+      bindings:
+
+        #Consumer
+        FilaUnicaInputCypher:
+          destination: FilaUnica
+          group: GrupoUnico
+
+        FilaUnicaInputJuggernaut:
+          destination: FilaUnica
+          group: GrupoUnico
+
+        #Producer
+        FilaUnicaOutput:
+          destination: FilaUnica
+          consumer:
+            requiredGroups: GrupoUnico
+
+      rabbit:
+        bindings:
+
+          #Consumer
+          FilaUnicaInputCypher:
+            consumer:
+              bindingRoutingKey: 'cypher'
+
+          FilaUnicaInputJuggernaut:
+            consumer:
+              bindingRoutingKey: 'juggernaut'
+
+
+          #Producer
+          FilaUnicaOutput:
+            produces:
+              bindingRoutingKey: 'xpto'
