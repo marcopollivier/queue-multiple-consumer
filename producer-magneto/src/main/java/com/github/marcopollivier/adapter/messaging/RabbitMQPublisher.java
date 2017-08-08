@@ -4,7 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessageHandler;
+import org.springframework.messaging.SubscribableChannel;
 import org.springframework.messaging.support.MessageBuilder;
 
 import static com.github.marcopollivier.adapter.messaging.ApplicationConstants.TENANT;
@@ -25,7 +28,16 @@ public class RabbitMQPublisher {
     }
 
     public void publish(String tenant, String mensagem) {
-        queueDestination.outputFaturaConvertida().send(MessageBuilder.withPayload(mensagem).setHeader(TENANT, tenant).build());
+
+
+        MessageBuilder<String> stringMessageBuilder = MessageBuilder.withPayload(mensagem);
+        stringMessageBuilder.setHeader(TENANT, tenant);
+
+        SubscribableChannel subscribableChannel = queueDestination.outputFaturaConvertida();
+
+
+        subscribableChannel.send(stringMessageBuilder.build());
+
 
         LOGGER.info("Publicando arquivo de cobranca de " + mensagem);
     }

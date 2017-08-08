@@ -11,4 +11,5 @@ public interface OutputDestination {
 
     @Output(QueueConstants.FATURA_CONVERTIDA_OUTPUT)
     SubscribableChannel outputFaturaConvertida();
+
 }
