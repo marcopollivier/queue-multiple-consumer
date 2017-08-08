@@ -33,10 +33,9 @@ public class RabbitMQPublisher {
         MessageBuilder<String> stringMessageBuilder = MessageBuilder.withPayload(mensagem);
         stringMessageBuilder.setHeader(TENANT, tenant);
 
-        SubscribableChannel subscribableChannel = queueDestination.outputFaturaConvertida();
+        MessageChannel channel = queueDestination.outputFaturaConvertida();
 
-
-        subscribableChannel.send(stringMessageBuilder.build());
+        channel.send(stringMessageBuilder.build());
 
 
         LOGGER.info("Publicando arquivo de cobranca de " + mensagem);
