@@ -11,5 +11,4 @@ https://stackoverflow.com/questions/43661064/how-to-use-rmq-and-spring-cloud-str
 
 
 
-
-http://docs.spring.io/spring-cloud-stream/docs/Brooklyn.SR3/reference/htmlsingle/#_rabbitmq_binder
+http://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#_rabbit_producer_properties
