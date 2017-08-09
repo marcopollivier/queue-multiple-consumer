@@ -1,5 +1,5 @@
 spring:
-  application.name: producer-magneto
+  application.name: producer-xmen
   rabbitmq:
     addresses: localhost
     virtual_host: xmen

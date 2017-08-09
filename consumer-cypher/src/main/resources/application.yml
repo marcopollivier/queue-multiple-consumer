@@ -1,6 +1,9 @@
+server:
+  port: 8081
+
 spring:
   application:
-    name: queue-multiple-consumer
+    name: consumer-xmen
   rabbitmq:
     addresses: localhost
     virtual_host: xmen
