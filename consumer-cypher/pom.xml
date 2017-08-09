@@ -16,7 +16,8 @@
 
         <camel.version>2.18.3</camel.version>
         <spring-boot.version>1.5.2.RELEASE</spring-boot.version>
-        <spring-cloud-rabbit>1.1.3.RELEASE</spring-cloud-rabbit>
+        <!--<spring-cloud-rabbit>1.1.3.RELEASE</spring-cloud-rabbit>-->
+        <spring-cloud-rabbit>1.1.0.RELEASE</spring-cloud-rabbit>
         <awaitility.version>1.7.0</awaitility.version>
 
         <postgres.version>9.4.1212</postgres.version>
@@ -146,6 +147,33 @@
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

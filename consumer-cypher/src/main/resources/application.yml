@@ -2,8 +2,7 @@ server:
   port: 8081
 
 spring:
-  application:
-    name: consumer-xmen
+  application.name: consumer-xmen
   rabbitmq:
     addresses: localhost
     virtual_host: xmen
@@ -17,5 +16,5 @@ spring:
     rabbit.bindings:
       CypherQueueInput:
         consumer:
+          routingKey: cypher
           bindingRoutingKey: cypher
-          headerPatterns: ['cypher']
