@@ -1,25 +1,19 @@
-#http://docs.spring.io/spring-cloud-stream/docs/Brooklyn.SR3/reference/htmlsingle/#_rabbit_producer_properties
+#http://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#_rabbit_producer_properties
 
 spring:
-  application:
-    name: producer-magneto
+  application.name: producer-magneto
   rabbitmq:
     addresses: localhost
     virtual_host: xmen
 
   cloud:
     stream.bindings:
-
-      #Producer
-      FilaUnicaOutput:
-        destination: FilaUnica
+      XMenQueueOutput:
+        destination: xmen-queue
         producer:
-          requiredGroups: Colossus
-
+          requiredGroups: xmen-group
 
 #    rabbit.bindings:
-#
-#        #Producer
-#        FilaUnicaOutput:
-#          produces:
-#            bindingRoutingKey: 'xpto'
+#        XMenQueueOutput:
+#          producer:
+#            bindQueue: false
