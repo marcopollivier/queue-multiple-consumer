@@ -1,5 +1,3 @@
-#http://docs.spring.io/spring-cloud-stream/docs/Brooklyn.SR3/reference/htmlsingle/#_rabbit_producer_properties
-
 spring:
   application:
     name: queue-multiple-consumer
@@ -8,38 +6,20 @@ spring:
     virtual_host: xmen
 
   cloud:
-    stream:
-      bindings:
+    stream.bindings:
+      CypherQueueInput:
+        destination: xmen-queue
+        group: xmen-group
 
-        #Consumer
-        FilaUnicaInputCypher:
-          destination: FilaUnica
-          group: GrupoUnico
+      JuggernautQueueInput:
+        destination: xmen-queue
+        group: xmen-group
 
-        FilaUnicaInputJuggernaut:
-          destination: FilaUnica
-          group: GrupoUnico
-
-        #Producer
-        FilaUnicaOutput:
-          destination: FilaUnica
-          consumer:
-            requiredGroups: GrupoUnico
-
-      rabbit:
-        bindings:
-
-          #Consumer
-          FilaUnicaInputCypher:
-            consumer:
-              bindingRoutingKey: 'cypher'
-
-          FilaUnicaInputJuggernaut:
-            consumer:
-              bindingRoutingKey: 'juggernaut'
-
-
-          #Producer
-          FilaUnicaOutput:
-            produces:
-              bindingRoutingKey: 'xpto'
+#    rabbit.bindings:
+#      CypherQueueInput:
+#        consumer:
+#          bindingRoutingKey: 'cypher'
+#
+#      JuggernautQueueInput:
+#        consumer:
+#          bindingRoutingKey: 'juggernaut'

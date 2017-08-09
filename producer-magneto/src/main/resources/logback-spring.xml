@@ -9,7 +9,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.m4u.icatu" level="INFO" additivity="true"/>
+    <logger name="com.github.marcopollivier.xmen" level="INFO" additivity="true"/>
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>

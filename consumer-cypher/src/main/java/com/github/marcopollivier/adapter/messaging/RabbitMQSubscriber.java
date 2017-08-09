@@ -6,12 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 
-import static com.github.marcopollivier.adapter.messaging.QueueConstants.FATURA_CONVERTIDA_CYPHER_INPUT;
-import static com.github.marcopollivier.adapter.messaging.QueueConstants.FATURA_CONVERTIDA_JUGGERNAUT_INPUT;
+import static com.github.marcopollivier.adapter.messaging.QueueConstants.CYPHER_QUEUE_INPUT;
+import static com.github.marcopollivier.adapter.messaging.QueueConstants.JUGGERNAUT_QUEUE_INPUT;
 
-/**
- * Created by marcoollivier on 06/06/17.
- */
 @EnableBinding(InputDestination.class)
 public class RabbitMQSubscriber {
 
@@ -21,23 +18,28 @@ public class RabbitMQSubscriber {
     public RabbitMQSubscriber() {
     }
 
-    @StreamListener(FATURA_CONVERTIDA_JUGGERNAUT_INPUT)
-    public void processaJuggernaut(String dado) {
-        if(dado.contains("cypher")) {
-            LOG.error("!!!!DADO ERRADO!!!!!!!");
+    @StreamListener(JUGGERNAUT_QUEUE_INPUT)
+    public void processJuggernaut(String juggernautMessage) {
+
+        if(juggernautMessage.contains("cypher")) {
+            LOG.error("!!!! ERROR !!!!!!!");
             return;
         }
-        LOG.info("JUGGERNAUT -> " + dado);
+
+        LOG.info("JUGGERNAUT -> " + juggernautMessage);
+
     }
 
 
-    @StreamListener(FATURA_CONVERTIDA_CYPHER_INPUT)
-    public void processaCypher(String dado) {
-        if(dado.contains("juggernaut")) {
-            LOG.error("!!!!DADO ERRADO!!!!!!!");
+    @StreamListener(CYPHER_QUEUE_INPUT)
+    public void processaCypher(String cypherMessage) {
+
+        if(cypherMessage.contains("juggernaut")) {
+            LOG.error("!!!! ERROR !!!!!!!");
             return;
         }
-        LOG.info("CYPHER -> " + dado);
+
+        LOG.info("CYPHER -> " + cypherMessage);
     }
 
 }

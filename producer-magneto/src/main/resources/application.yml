@@ -13,7 +13,7 @@ spring:
         producer:
           requiredGroups: xmen-group
 
-#    rabbit.bindings:
-#        XMenQueueOutput:
-#          producer:
-#            bindQueue: false
+    rabbit.bindings:
+        XMenQueueOutput:
+          producer:
+            bindQueue: false
