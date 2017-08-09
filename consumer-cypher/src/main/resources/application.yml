@@ -15,11 +15,12 @@ spring:
         destination: xmen-queue
         group: xmen-group
 
-#    rabbit.bindings:
-#      CypherQueueInput:
-#        consumer:
-#          bindingRoutingKey: 'cypher'
-#
-#      JuggernautQueueInput:
-#        consumer:
-#          bindingRoutingKey: 'juggernaut'
+    rabbit.bindings:
+      CypherQueueInput:
+        consumer:
+          bindingRoutingKey: cypher
+          headerPatterns: ['TENANT', 'cypher']
+
+      JuggernautQueueInput:
+        consumer:
+          bindingRoutingKey: juggernaut

@@ -1,5 +1,3 @@
-#http://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#_rabbit_producer_properties
-
 spring:
   application.name: producer-magneto
   rabbitmq:
