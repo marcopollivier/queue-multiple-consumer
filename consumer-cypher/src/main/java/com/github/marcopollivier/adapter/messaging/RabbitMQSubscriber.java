@@ -7,7 +7,6 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 
 import static com.github.marcopollivier.adapter.messaging.QueueConstants.CYPHER_QUEUE_INPUT;
-import static com.github.marcopollivier.adapter.messaging.QueueConstants.JUGGERNAUT_QUEUE_INPUT;
 
 @EnableBinding(InputDestination.class)
 public class RabbitMQSubscriber {
@@ -17,19 +16,6 @@ public class RabbitMQSubscriber {
     @Autowired
     public RabbitMQSubscriber() {
     }
-
-    @StreamListener(JUGGERNAUT_QUEUE_INPUT)
-    public void processJuggernaut(String juggernautMessage) {
-
-        if(juggernautMessage.contains("cypher")) {
-            LOG.error("!!!! ERROR !!!!!!!");
-            return;
-        }
-
-        LOG.info("JUGGERNAUT -> " + juggernautMessage);
-
-    }
-
 
     @StreamListener(CYPHER_QUEUE_INPUT)
     public void processaCypher(String cypherMessage) {

@@ -14,16 +14,8 @@ spring:
         destination: xmen-queue
         group: xmen-group
 
-      JuggernautQueueInput:
-        destination: xmen-queue
-        group: xmen-group
-
     rabbit.bindings:
       CypherQueueInput:
         consumer:
           bindingRoutingKey: cypher
-          headerPatterns: ['TENANT', 'cypher']
-
-      JuggernautQueueInput:
-        consumer:
-          bindingRoutingKey: juggernaut
+          headerPatterns: ['cypher']

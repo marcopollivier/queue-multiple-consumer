@@ -23,14 +23,12 @@ public class RabbitMQPublisher {
 
     public void publish(String tenant, String xmenMessage) {
 
-
         MessageBuilder<String> stringMessageBuilder = MessageBuilder.withPayload(xmenMessage);
         stringMessageBuilder.setHeader(TENANT, tenant);
 
         MessageChannel subscribableChannel = queueDestination.outputXMenMessage();
 
         subscribableChannel.send(stringMessageBuilder.build());
-
 
         LOGGER.info("XMen message published -> " + xmenMessage);
     }
