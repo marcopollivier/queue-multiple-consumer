@@ -1,14 +1,12 @@
-package com.github.marcopollivier.app.route;
+package com.marcopollivier.xmen.queue.rabbitmq.producer.app.route;
 
-import com.github.marcopollivier.adapter.messaging.RabbitMQPublisher;
+import com.marcopollivier.xmen.queue.rabbitmq.producer.adapter.messaging.RabbitMQPublisher;
+import com.marcopollivier.xmen.queue.rabbitmq.producer.adapter.messaging.ApplicationConstants;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-
-import static com.github.marcopollivier.adapter.messaging.ApplicationConstants.CYPHER;
-import static com.github.marcopollivier.adapter.messaging.ApplicationConstants.JUGGERNAUT;
 
 @Component
 public class PublishXMenMessageRoute extends RouteBuilder {
@@ -34,8 +32,8 @@ public class PublishXMenMessageRoute extends RouteBuilder {
     }
 
     private void stressTest() {
-        publisher.publish(CYPHER, getXmenMessage(CYPHER));
-        publisher.publish(JUGGERNAUT, getXmenMessage(JUGGERNAUT));
+        publisher.publish(ApplicationConstants.CYPHER, getXmenMessage(ApplicationConstants.CYPHER));
+        publisher.publish(ApplicationConstants.JUGGERNAUT, getXmenMessage(ApplicationConstants.JUGGERNAUT));
     }
 
     public String getXmenMessage(String tenant) {

@@ -1,4 +1,4 @@
-package com.github.marcopollivier.adapter.messaging;
+package com.marcopollivier.xmen.queue.rabbitmq.consumer.adapter.messaging;
 
 final class QueueConstants {
 

@@ -1,13 +1,13 @@
-package com.github.marcopollivier;
+package com.marcopollivier.xmen.queue.rabbitmq.consumer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProducerXMenApplication {
+public class ConsumerXMenApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProducerXMenApplication.class, args);
+        SpringApplication.run(ConsumerXMenApplication.class, args);
     }
 
 }

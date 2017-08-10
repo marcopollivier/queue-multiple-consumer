@@ -1,4 +1,4 @@
-package com.github.marcopollivier.adapter.messaging;
+package com.marcopollivier.xmen.queue.rabbitmq.producer.adapter.messaging;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
-
-import static com.github.marcopollivier.adapter.messaging.ApplicationConstants.TENANT;
 
 @EnableBinding(OutputDestination.class)
 public class RabbitMQPublisher {
@@ -24,7 +22,7 @@ public class RabbitMQPublisher {
     public void publish(String tenant, String xmenMessage) {
 
         MessageBuilder<String> stringMessageBuilder = MessageBuilder.withPayload(xmenMessage);
-        stringMessageBuilder.setHeader(TENANT, tenant);
+        stringMessageBuilder.setHeader(ApplicationConstants.TENANT, tenant);
 
         MessageChannel subscribableChannel = queueDestination.outputXMenMessage();
 
