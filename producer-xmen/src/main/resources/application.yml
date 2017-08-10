@@ -1,6 +1,3 @@
-#mvn dependency:resolve -Dclassifier=javadoc
-#mvn dependency:sources
-
 spring:
   application.name: producer-xmen
   rabbitmq:

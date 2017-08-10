@@ -8,7 +8,7 @@ spring:
     virtual_host: xmen
 
   cloud:
-    stream.bindings:
+    stream.b]indings:
       CypherQueueInput:
         destination: xmen-queue
         group: xmen-group
