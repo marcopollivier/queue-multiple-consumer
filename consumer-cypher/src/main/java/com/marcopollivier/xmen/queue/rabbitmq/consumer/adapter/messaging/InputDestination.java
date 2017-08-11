@@ -10,4 +10,7 @@ public interface InputDestination {
     @Input(CYPHER_QUEUE_INPUT)
     MessageChannel outputCypherMessage();
 
+    @Input("JuggernautQueueInput")
+    MessageChannel outputJuggMessage();
+
 }

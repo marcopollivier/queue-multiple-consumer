@@ -8,13 +8,22 @@ spring:
     virtual_host: xmen
 
   cloud:
-    stream.b]indings:
+    stream.bindings:
       CypherQueueInput:
-        destination: xmen-queue
-        group: xmen-group
+        destination: xmen-destination-exchange
+        group: cypher
+
+      JuggernautQueueInput:
+        destination: xmen-destination-exchange
+        group: juggernaut
 
     rabbit.bindings:
       CypherQueueInput:
         consumer:
-          routingKey: cypher
+          durableSubscription: true
           bindingRoutingKey: cypher
+
+      JuggernautQueueInput:
+        consumer:
+          durableSubscription: true
+          bindingRoutingKey: juggernaut
