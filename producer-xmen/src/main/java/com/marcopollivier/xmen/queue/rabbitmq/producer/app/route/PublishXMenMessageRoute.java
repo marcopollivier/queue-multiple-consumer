@@ -1,21 +1,23 @@
 package com.marcopollivier.xmen.queue.rabbitmq.producer.app.route;
 
 import com.marcopollivier.xmen.queue.rabbitmq.producer.adapter.messaging.RabbitMQPublisher;
-import com.marcopollivier.xmen.queue.rabbitmq.producer.adapter.messaging.ApplicationConstants;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+import static com.marcopollivier.xmen.queue.rabbitmq.producer.adapter.messaging.ApplicationConstants.CYPHER;
+import static com.marcopollivier.xmen.queue.rabbitmq.producer.adapter.messaging.ApplicationConstants.JUGGERNAUT;
+
 @Component
 public class PublishXMenMessageRoute extends RouteBuilder {
 
-    private RabbitMQPublisher publisher;
+    private RabbitMQPublisher staticPublisher;
 
     @Autowired
-    public PublishXMenMessageRoute(RabbitMQPublisher publisher) {
-        this.publisher = publisher;
+    public PublishXMenMessageRoute(RabbitMQPublisher staticPublisher) {
+        this.staticPublisher = staticPublisher;
     }
 
     @Override
@@ -32,8 +34,9 @@ public class PublishXMenMessageRoute extends RouteBuilder {
     }
 
     private void stressTest() {
-        publisher.publish(ApplicationConstants.CYPHER, getXmenMessage(ApplicationConstants.CYPHER));
-        publisher.publish(ApplicationConstants.JUGGERNAUT, getXmenMessage(ApplicationConstants.JUGGERNAUT));
+        staticPublisher.publish(CYPHER, getXmenMessage(CYPHER));
+        staticPublisher.publish(CYPHER, getXmenMessage(CYPHER));
+        staticPublisher.publish(JUGGERNAUT, getXmenMessage(JUGGERNAUT));
     }
 
     public String getXmenMessage(String tenant) {

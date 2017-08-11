@@ -3,15 +3,3 @@ spring:
   rabbitmq:
     addresses: localhost
     virtual_host: xmen
-
-  cloud:
-    stream.bindings:
-      XMenQueueOutput:
-        destination: xmen-queue
-        producer:
-          requiredGroups: xmen-group
-
-    rabbit.bindings:
-        XMenQueueOutput:
-          producer:
-            bindQueue: false
