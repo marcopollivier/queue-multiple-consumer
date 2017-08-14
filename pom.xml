@@ -7,7 +7,7 @@
     <groupId>com.marcopollivier.queue-multiple-consumer</groupId>
     <artifactId>queue-multiple-consumer</artifactId>
     <packaging>pom</packaging>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>Multi Consumer Queue Spring Cloud</name>
 
     <scm>
