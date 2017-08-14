@@ -33,7 +33,14 @@ public class RabbitMQPublisher {
 
     private void sendMessage(String body, String tenant, Object contentType) {
 
-        String target = tenant + "-destination";
+        String target = "magneto.faturaProcessada." + tenant;
+        /*
+         * TODO opções:
+         *   pegar informção do banco de dados ou do yml.
+         *   Nos dois casos, se não estiver configurado que será utilizado um gerenciador de arquivos específico
+         *   será utilizado o colossus. Acredito que, por ser uma escolha de qual gerenciador está sendo utilizado,
+         *   essa configuração pode ficar dentro do yml
+         */
 
         MessageHeaders headers = new MessageHeaders(Collections.singletonMap(MessageHeaders.CONTENT_TYPE, contentType));
         resolver.resolveDestination(target).send(MessageBuilder.createMessage(body,headers));

@@ -1,5 +1,6 @@
-server:
-  port: 8082
+project.name: cypher
+
+server.port: 8083
 
 spring:
   application.name: consumer-xmen
@@ -10,8 +11,8 @@ spring:
   cloud:
     stream.bindings:
       XMenConsumerQueueInput:
-        destination: cypher-destination
-        group: xmen-group
+        destination: magneto.faturaProcessada.${project.name}
+        group: invoiceProcessed
 
     rabbit.bindings:
       XMenConsumerQueueInput:

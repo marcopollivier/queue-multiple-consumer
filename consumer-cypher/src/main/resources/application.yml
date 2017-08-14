@@ -1,5 +1,6 @@
-server:
-  port: 8081
+project.name: colossus
+
+server.port: 8081
 
 spring:
   application.name: consumer-xmen
@@ -10,8 +11,8 @@ spring:
   cloud:
     stream.bindings:
       XMenConsumerQueueInput:
-        destination: colossus-destination
-        group: xmen-group
+        destination: magneto.faturaProcessada.${project.name}
+        group: invoiceProcessed
 
     rabbit.bindings:
       XMenConsumerQueueInput:

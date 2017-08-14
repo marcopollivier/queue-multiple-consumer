@@ -3,3 +3,9 @@ spring:
   rabbitmq:
     addresses: localhost
     virtual_host: xmen
+
+  cloud:
+    stream.bindings:
+      XMenQueueOutput:
+        producer:
+          requiredGroups: invoiceProcessed
