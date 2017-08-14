@@ -10,6 +10,13 @@
     <version>0.1.0-SNAPSHOT</version>
     <name>Multi Consumer Queue Spring Cloud</name>
 
+    <scm>
+        <connection>scm:git:ssh://git@github.com:marcopollivier/springcloud-routing-queue-rabbitmq.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:marcopollivier/springcloud-routing-queue-rabbitmq.git</developerConnection>
+        <url>https://github.com/marcopollivier/springcloud-routing-queue-rabbitmq.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <modules>
         <module>consumer-cypher</module>
         <module>producer-xmen</module>
