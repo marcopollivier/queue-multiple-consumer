@@ -11,9 +11,9 @@
     <name>Multi Consumer Queue Spring Cloud</name>
 
     <scm>
-        <connection>scm:git:ssh://git@github.com:marcopollivier/springcloud-routing-queue-rabbitmq.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:marcopollivier/springcloud-routing-queue-rabbitmq.git</developerConnection>
-        <url>https://github.com/marcopollivier/springcloud-routing-queue-rabbitmq.git</url>
+        <url>https://github.com/marcopollivier/springcloud-routing-queue-rabbitmq</url>
+        <connection>scm:git:git://github.com/marcopollivier/springcloud-routing-queue-rabbitmq.git</connection>
+        <developerConnection>scm:git:git@github.com:marcopollivier/springcloud-routing-queue-rabbitmq.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
