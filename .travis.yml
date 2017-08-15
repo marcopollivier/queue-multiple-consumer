@@ -5,5 +5,5 @@ script: "mvn test && mvn clean verify"
 
 #Slack Integration
 notifications:
-   slack: relativity-br:LtW29VqKB8M0muNRXGnVXKVX
+   slack: responsive-br:XzxdmkIDuF5Vh2OdaQ4AB7mf
    email: false
