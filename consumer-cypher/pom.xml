@@ -8,9 +8,9 @@
         <version>0.2.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>consumer-cypher</artifactId>
+    <artifactId>consumer-xmen</artifactId>
     <packaging>jar</packaging>
-    <name>Consumer Cypher</name>
+    <name>Consumer XMen</name>
 
     <dependencies>
         <!-- Spring -->
