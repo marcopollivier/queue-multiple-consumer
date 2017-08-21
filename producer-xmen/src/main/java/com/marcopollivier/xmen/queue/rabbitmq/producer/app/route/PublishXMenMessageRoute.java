@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+import static com.marcopollivier.xmen.queue.rabbitmq.producer.adapter.messaging.ApplicationConstants.COLOSSUS;
 import static com.marcopollivier.xmen.queue.rabbitmq.producer.adapter.messaging.ApplicationConstants.CYPHER;
 import static com.marcopollivier.xmen.queue.rabbitmq.producer.adapter.messaging.ApplicationConstants.JUGGERNAUT;
 
@@ -37,6 +38,7 @@ public class PublishXMenMessageRoute extends RouteBuilder {
         staticPublisher.publish(CYPHER, getXmenMessage(CYPHER));
         staticPublisher.publish(CYPHER, getXmenMessage(CYPHER));
         staticPublisher.publish(JUGGERNAUT, getXmenMessage(JUGGERNAUT));
+        staticPublisher.publish(COLOSSUS, getXmenMessage(COLOSSUS));
     }
 
     public String getXmenMessage(String tenant) {

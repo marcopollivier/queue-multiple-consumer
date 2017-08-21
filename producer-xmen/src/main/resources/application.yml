@@ -7,5 +7,4 @@ spring:
   cloud:
     stream.bindings:
       XMenQueueOutput:
-        producer:
-          requiredGroups: invoiceProcessed
+        destination: magneto.faturaProcessada
